@@ -2,153 +2,129 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { api } from "@/lib/api";
-import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
+import { useAuth } from "@/app/hooks/useAuth";
+import { Role } from "@/app/types/user";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Lock, Mail, Building2 } from "lucide-react";
+import Link from "next/link";
 
-export default function ClientLoginPage() {
+export default function LoginPage() {
   const router = useRouter();
+  const { login } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
     setLoading(true);
 
+    // Simple logic to detect role from email for demo purposes
+    let role: Role = "CLIENT";
+    if (email.includes("admin")) role = "ADMIN";
+    if (email.includes("realtor")) role = "REALTOR";
+
+    await performLogin(role);
+  };
+
+  const performLogin = async (role: Role) => {
     try {
-      const res = await api.clientLogin({ email, password });
-
-      if (!res.success) {
-        throw new Error(res.message || "Login failed");
+      setLoading(true);
+      await login(role);
+      
+      // Redirect based on role
+      switch (role) {
+        case "ADMIN":
+          router.push("/admin/dashboard");
+          break;
+        case "REALTOR":
+          router.push("/realtor/dashboard");
+          break;
+        case "CLIENT":
+          router.push("/client/dashboard");
+          break;
       }
-
-      // 🔐 Save token
-      localStorage.setItem("token", res.token);
-
-      // ✅ Redirect
-      router.push("/client/dashboard");
-    } catch (err: any) {
-      setError(err.message);
+    } catch (error) {
+      console.error(error);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center  px-4">
-      <div className="w-full max-w-md">
-        <form
-          onSubmit={handleLogin}
-          className="p-8"
-        >
-          {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Sign In
-            </h1>
-            <p className="text-sm text-gray-500">
-              Enter your credentials to access your portal.
+    <div className="min-h-screen flex flex-col items-center justify-center bg-muted/40 relative overflow-hidden px-4 py-12">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+
+      <div className="z-10 w-full max-w-md space-y-8">
+        <div className="flex flex-col items-center justify-center text-center space-y-2">
+            <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20 mb-4">
+              <Building2 className="w-6 h-6 text-primary-foreground" />
+            </div>
+            <h1 className="text-2xl font-bold tracking-tight">Welcome back</h1>
+            <p className="text-sm text-muted-foreground">
+                Enter your credentials to access your account
             </p>
-          </div>
+        </div>
 
-          {/* Error Message */}
-          {error && (
-            <div className="mb-6 p-3 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-sm text-red-600 text-center">{error}</p>
-            </div>
-          )}
-
-          {/* Email Input */}
-          <div className="mb-5">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email Address
-            </label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type="email"
-                placeholder="name@example.com"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-              />
-            </div>
-          </div>
-
-          {/* Password Input */}
-          <div className="mb-4">
-            <div className="flex items-center justify-between mb-2">
-              <label className="block text-sm font-medium text-gray-700">
-                Password
-              </label>
-              <a
-                href="/auth/client/forgot-password"
-                className="text-sm font-medium text-blue-600 hover:text-blue-700"
-              >
-                Forgot Password?
-              </a>
-            </div>
-            <div className="relative">
-              <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <input
-                type={showPassword ? "text" : "password"}
-                placeholder="••••••••"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-              >
-                {showPassword ? (
-                  <EyeOff className="w-5 h-5" />
-                ) : (
-                  <Eye className="w-5 h-5" />
-                )}
-              </button>
-            </div>
-          </div>
-
-          {/* Keep me logged in */}
-          <div className="mb-6">
-            <label className="flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                checked={keepLoggedIn}
-                onChange={(e) => setKeepLoggedIn(e.target.checked)}
-                className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-              />
-              <span className="ml-2 text-sm text-gray-700">
-                Keep me logged in
-              </span>
-            </label>
-          </div>
-
-          {/* Login Button */}
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-blue-600 text-white py-3.5 rounded-lg font-semibold hover:bg-blue-700 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
-          >
-            {loading ? (
-              "Logging in..."
-            ) : (
-              <>
-                Log In
-                <ArrowRight className="w-5 h-5" />
-              </>
-            )}
-          </button>
-        </form>
+        <Card className="bg-white/80 backdrop-blur-md border-muted/60 shadow-xl">
+            <CardContent className="pt-6">
+            <form onSubmit={handleLogin} className="space-y-4">
+                <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <div className="relative">
+                    <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <Input
+                    id="email"
+                    type="email"
+                    placeholder="name@example.com"
+                    className="pl-10 bg-background/50"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    />
+                </div>
+                </div>
+                <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                    <Label htmlFor="password">Password</Label>
+                    <Link 
+                        href="/auth/forgot-password" 
+                        className="text-xs text-primary hover:underline hover:text-primary/90"
+                    >
+                        Forgot password?
+                    </Link>
+                </div>
+                <div className="relative">
+                    <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <Input
+                    id="password"
+                    type="password"
+                    className="pl-10 bg-background/50"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    />
+                </div>
+                </div>
+                <Button className="w-full" type="submit" disabled={loading}>
+                {loading ? "Signing in..." : "Sign In"}
+                </Button>
+            </form>
+            </CardContent>
+            <CardFooter className="flex justify-center border-t bg-muted/20 py-4">
+                <p className="text-sm text-muted-foreground">
+                    Don&apos;t have an account?{" "}
+                    <Link href="/auth" className="text-primary hover:underline font-medium">
+                        Sign up
+                    </Link>
+                </p>
+            </CardFooter>
+        </Card>
       </div>
     </div>
   );

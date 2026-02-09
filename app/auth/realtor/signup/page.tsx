@@ -1,9 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { User, Mail, Lock, ArrowRight, Briefcase, Ticket } from "lucide-react";
+import { Mail, Lock, User, Briefcase, Ticket } from "lucide-react";
 import { api } from "@/lib/api";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function RealtorSignup() {
   const router = useRouter();
@@ -39,114 +44,107 @@ export default function RealtorSignup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white">
-      <div className="w-full lg:w-1/2 flex items-center justify-center px-6 py-12">
-        <div className="w-full max-w-md">
-          {/* Mobile Logo */}
-          <div className="lg:hidden flex items-center gap-2 mb-8">
-            <Briefcase size={32} className="text-blue-600" />
-            <span className="text-2xl font-bold tracking-tighter text-slate-900">HomeBase Pro</span>
-          </div>
+    <div className="min-h-screen bg-muted/40 flex items-center justify-center px-4 py-12 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 z-0 opacity-20 pointer-events-none bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]"></div>
 
-          <div className="mb-10">
-            <h2 className="text-3xl font-bold text-slate-900">Partner With Us</h2>
-            <p className="text-slate-500 mt-2">Create your professional realtor profile.</p>
-          </div>
+      <Card className="w-full max-w-md bg-white/80 backdrop-blur-md shadow-xl border border-muted/60 z-10">
+        <CardHeader className="text-center space-y-1">
+            <div className="flex justify-center mb-2">
+                <div className="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center">
+                    <Briefcase className="w-6 h-6 text-primary" />
+                </div>
+            </div>
+            <CardTitle className="text-2xl font-bold">Partner With Us</CardTitle>
+            <CardDescription>
+                Create your professional realtor profile and grow your business.
+            </CardDescription>
+        </CardHeader>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-4">
             {error && (
-              <div className="p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm font-medium text-center">
-                {error}
+              <div className="p-3 bg-destructive/10 border border-destructive/20 rounded-md">
+                <p className="text-destructive text-sm text-center font-medium">{error}</p>
               </div>
             )}
 
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2">Full Name</label>
-              <div className="relative group">
-                <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400 group-focus-within:text-emerald-600 transition-colors">
-                  <User size={20} />
-                </span>
-                <input
+            <div className="space-y-2">
+              <Label htmlFor="name">Full Name</Label>
+              <div className="relative">
+                <User className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input
+                  id="name"
                   required
                   type="text"
-                  value={form.name}
                   placeholder="e.g. Sarah Jenkins"
+                  className="pl-10 bg-background/50"
+                  value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 outline-none transition-all"
                 />
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2">Email Address</label>
-              <div className="relative group">
-                <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400 group-focus-within:text-emerald-600 transition-colors">
-                  <Mail size={20} />
-                </span>
-                <input
+            <div className="space-y-2">
+              <Label htmlFor="email">Email Address</Label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input
+                  id="email"
                   required
                   type="email"
+                  placeholder="name@example.com"
+                  className="pl-10 bg-background/50"
                   value={form.email}
-                  placeholder="sarah@agency.com"
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 outline-none transition-all"
                 />
               </div>
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold text-slate-700 mb-2">Password</label>
-              <div className="relative group">
-                <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400 group-focus-within:text-emerald-600 transition-colors">
-                  <Lock size={20} />
-                </span>
-                <input
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input
+                  id="password"
                   required
                   type="password"
+                  className="pl-10 bg-background/50"
                   value={form.password}
-                  placeholder="••••••••"
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  className="w-full pl-12 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 outline-none transition-all"
                 />
               </div>
             </div>
 
-            <div className="pt-2">
-              <label className="block text-sm font-semibold mb-2 text-blue-600">
-                Referral Code <span className="text-slate-400 font-normal">(Optional)</span>
-              </label>
-              <div className="relative group">
-                <span className="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400 group-focus-within:text-emerald-600 transition-colors">
-                  <Ticket size={20} />
-                </span>
-                <input
-                  type="text"
-                  value={form.referral}
-                  placeholder="PRO-2024"
-                  onChange={(e) => setForm({ ...form, referral: e.target.value })}
-                  className="w-full pl-12 pr-4 py-3.5 bg-emerald-50/50 border border-emerald-100 rounded-xl focus:bg-white focus:ring-4 focus:ring-emerald-100 focus:border-emerald-500 outline-none transition-all placeholder:text-emerald-200"
-                />
-              </div>
+            <div className="space-y-2">
+                <Label htmlFor="referral">Referral Code (Optional)</Label>
+                <div className="relative">
+                    <Ticket className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <Input
+                        id="referral"
+                        type="text"
+                        placeholder="REF-12345"
+                        className="pl-10 bg-background/50"
+                        value={form.referral}
+                        onChange={(e) => setForm({ ...form, referral: e.target.value })}
+                    />
+                </div>
             </div>
 
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-slate-900 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg shadow-emerald-100 transition-all flex items-center justify-center space-x-2 disabled:opacity-70 group mt-4"
-            >
-              <span>{loading ? "Registering Pro Profile..." : "Complete Registration"}</span>
-              {!loading && <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />}
-            </button>
+            <Button className="w-full" type="submit" disabled={loading}>
+              {loading ? "Creating Account..." : "Create Account"}
+            </Button>
           </form>
-
-          <p className="text-center text-slate-600 mt-8">
-            Already a partner?{" "}
-            <a href="/auth/realtor/login" className="text-blue-600 font-bold hover:text-blue-700">
-              Sign In
-            </a>
-          </p>
-        </div>
-      </div>
+        </CardContent>
+        <CardFooter className="flex justify-center border-t bg-muted/20 py-4">
+             <p className="text-sm text-muted-foreground">
+                Already have an account?{" "}
+                <Link href="/auth/login" className="text-primary hover:underline font-medium">
+                    Sign in
+                </Link>
+            </p>
+        </CardFooter>
+      </Card>
     </div>
   );
 }
