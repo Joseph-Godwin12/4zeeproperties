@@ -23,11 +23,11 @@ export default function ClientLogin() {
     setError("");
 
     try {
-      const response = await api.clientLogin(form);
+      const response = await api.login(form);
       if (response?.success) {
         router.push("/client/dashboard");
       } else {
-        setError(response?.message || "Invalid email or password.");
+        setError(response?.error || "Invalid email or password.");
       }
     } catch (err) {
       console.error(err);
