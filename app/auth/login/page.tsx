@@ -9,6 +9,8 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Lock, Mail, Building2, AlertCircle, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import logo from "@/public/logo.png";
 
 export default function LoginPage() {
   return (
@@ -64,13 +66,11 @@ function LoginContent() {
 
       <div className="z-10 w-full max-w-md space-y-8">
         <div className="flex flex-col items-center justify-center text-center space-y-2">
-            <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center shadow-lg shadow-primary/20 mb-4">
-              <Building2 className="w-6 h-6 text-primary-foreground" />
-            </div>
-            <h1 className="text-2xl font-bold tracking-tight">Welcome back</h1>
-            <p className="text-sm text-muted-foreground">
-                Enter your credentials to access your account
-            </p>
+          <Image src={logo} alt="4Zee Properties Logo" className="h-6 w-auto" />
+          <h1 className="text-2xl font-bold tracking-tight">Welcome back</h1>
+          <p className="text-sm text-muted-foreground">
+            Enter your credentials to access your account
+          </p>
         </div>
 
         <Card className="bg-white/80 backdrop-blur-md border-muted/60 shadow-xl">
@@ -131,7 +131,7 @@ function LoginContent() {
                     />
                 </div>
                 </div>
-                <Button className="w-full" type="submit" disabled={loading}>
+                <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700" type="submit" disabled={loading}>
                 {loading ? "Signing in..." : "Sign In"}
                 </Button>
             </form>
