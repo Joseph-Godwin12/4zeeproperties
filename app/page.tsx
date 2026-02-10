@@ -4,13 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   ArrowRight,
-  Building2,
-  ShieldCheck,
-  Users,
-  TrendingUp,
   MapPin,
-  Star,
-  CheckCircle2,
   Phone,
   Mail,
   ChevronRight,
@@ -20,6 +14,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { APP_NAME } from "@/app/utils/constant";
+import logo from "@/public/logo.png";
+import hero from "@/public/hero.png";
 
 const STEPS = [
   {
@@ -45,115 +41,18 @@ const STEPS = [
   },
 ];
 
-const FEATURES = [
-  {
-    icon: ShieldCheck,
-    title: "Verified Listings",
-    description:
-      "Every property is vetted by our team. No scams, no surprises — just genuine opportunities.",
-  },
-  {
-    icon: Users,
-    title: "Expert Realtors",
-    description:
-      "Our network of certified agents provides personalized guidance from search to settlement.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Market Insights",
-    description:
-      "Real-time analytics and pricing data help you make confident, informed decisions.",
-  },
-  {
-    icon: MapPin,
-    title: "Prime Locations",
-    description:
-      "Access properties in the most sought-after neighborhoods with high appreciation potential.",
-  },
-];
 
-const TESTIMONIALS = [
-  {
-    name: "Adewale Johnson",
-    role: "Homeowner",
-    quote:
-      "4Zee Properties made buying my first home stress-free. The process was transparent and the agent was incredibly supportive.",
-    avatar: "AJ",
-  },
-  {
-    name: "Chioma Nwosu",
-    role: "Real Estate Investor",
-    quote:
-      "I've closed three deals through 4Zee. Their platform is intuitive and the listings are always top-quality.",
-    avatar: "CN",
-  },
-  {
-    name: "Emeka Obi",
-    role: "Realtor Partner",
-    quote:
-      "Joining as a realtor was the best career decision. The referral system and dashboard tools are excellent.",
-    avatar: "EO",
-  },
-];
 
 export default function LandingPage() {
   return (
-<<<<<<< HEAD
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 bg-cover bg-center z-0"
-          style={{ 
-            backgroundImage: 'url(https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop)' 
-          }}
-        >
-          <div className="absolute inset-0 bg-black/50" />
-        </div>
-        
-        <div className="container relative z-10 mx-auto px-4 text-center text-white space-y-6">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
-            Find Your Dream Home
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto">
-            Discover a wide range of properties selected just for you. 
-            From luxury villas to cozy apartments.
-          </p>
-          
-          <div className="flex flex-col items-center gap-6">
-            {/* Search Box */}
-            {/* Role Selection CTA */}
-            <Link href="/auth">
-              <Button size="lg" variant="outline" className="h-12 px-8 text-lg font-semibold border-white text-blue-700 hover:bg-white hover:text-blue-900 hover:border-white transition-all">
-                Get Started
-              </Button>
-            </Link>
-=======
     <div className="flex flex-col min-h-screen bg-white">
       {/* ─── NAVIGATION ─── */}
       <header className="fixed top-0 inset-x-0 z-50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mt-4 flex h-14 items-center justify-between rounded-2xl bg-white/70 backdrop-blur-xl border border-gray-200/60 px-5 shadow-sm">
             <Link href="/" className="flex items-center gap-2 font-bold text-lg text-primary">
-              <Building2 className="h-5 w-5" />
-              <span>{APP_NAME}</span>
+              <Image src={logo} alt="4Zee Properties Logo" className="h-10 w-auto" />
             </Link>
-
-            <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
-              <a href="#how-it-works" className="hover:text-gray-900 transition-colors">
-                How It Works
-              </a>
-              <a href="#features" className="hover:text-gray-900 transition-colors">
-                Why Us
-              </a>
-              <a href="#testimonials" className="hover:text-gray-900 transition-colors">
-                Testimonials
-              </a>
-              <Link href="/properties" className="hover:text-gray-900 transition-colors">
-                Properties
-              </Link>
-            </nav>
-
             <div className="flex items-center gap-3">
               <Link href="/auth/login">
                 <Button variant="ghost" size="sm" className="text-sm font-medium text-gray-700 hover:text-gray-900">
@@ -171,116 +70,80 @@ export default function LandingPage() {
       </header>
 
       {/* ─── HERO ─── */}
-      <section className="relative isolate pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden">
-        {/* Gradient background */}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-blue-50/80 via-white to-white" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -z-10 w-[900px] h-[900px] rounded-full bg-gradient-to-tr from-primary/10 to-blue-200/30 blur-3xl opacity-60" />
+      <section className="relative text-center isolate pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden ">
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src={hero}
+            alt="Hero background"
+            fill
+            className="object-cover"
+            priority
+          />
+          <div className="absolute inset-0" />
+        </div>
         {/* Subtle grid */}
-        <div className="absolute inset-0 -z-10 opacity-[0.03] bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-[size:40px_40px]" />
+        <div className="absolute inset-0 -z-10 opacity-[0.03] bg-[linear-gradient(to_right,#000_1px,transparent_1px),linear-gradient(to_bottom,#000_1px,transparent_1px)] bg-size:40px_40px" />
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            {/* Left – Copy */}
-            <div className="space-y-8 max-w-xl">
-              <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary">
-                <Sparkles className="h-3.5 w-3.5" />
-                Nigeria&apos;s Trusted Property Platform
-              </div>
-
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.1]">
-                Real Estate,{" "}
-              </h1>
-
-              <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
-                Whether you&apos;re buying your first home, investing in property, or
-                growing a real estate career — 4Zee gives you the tools, listings,
-                and expert support to succeed.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link href="/auth">
-                  <Button size="lg" className="h-13 px-8 text-base font-semibold rounded-xl gap-2 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-shadow">
-                    Start For Free
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-                <Link href="/properties">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="h-13 px-8 text-base font-semibold rounded-xl gap-2 border-gray-300 hover:border-gray-400"
-                  >
-                    Explore Properties
-                  </Button>
-                </Link>
-              </div>
-
-              {/* Social proof mini */}
-              <div className="flex items-center gap-4 pt-2">
-                <div className="flex -space-x-2.5">
-                  {["AJ", "CN", "EO", "RK"].map((initials, i) => (
-                    <div
-                      key={i}
-                      className="h-9 w-9 rounded-full border-2 border-white bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-[11px] font-bold text-white shadow-sm"
-                    >
-                      {initials}
-                    </div>
-                  ))}
-                </div>
-                <div className="text-sm text-gray-600">
-                  <span className="font-semibold text-gray-900">1,200+</span> happy
-                  clients this year
-                </div>
-              </div>
+          <div className="flex justify-center">
+        {/* Center – Copy */}
+        <div className="space-y-8 max-w-2xl">
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-semibold text-primary mx-auto">
+            <Sparkles className="h-3.5 w-3.5" />
+            Nigeria&apos;s Trusted Property Platform
             </div>
 
-            {/* Right – Hero Image */}
-            <div className="relative hidden lg:block">
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl shadow-gray-900/10 ring-1 ring-gray-200/50">
-                <Image
-                  src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop"
-                  alt="Luxury modern home"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                {/* Floating card */}
-                <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md rounded-2xl p-5 shadow-lg border border-white/50">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Featured Listing
-                      </p>
-                      <p className="text-lg font-bold text-gray-900 mt-0.5">
-                        Luxury 4-Bed Villa
-                      </p>
-                      <p className="text-sm text-gray-500 flex items-center gap-1 mt-1">
-                        <MapPin className="h-3.5 w-3.5" /> Lekki Phase 1, Lagos
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-xl font-extrabold text-primary">₦85M</p>
-                      <p className="text-xs text-green-600 font-medium flex items-center gap-1 justify-end mt-1">
-                        <TrendingUp className="h-3 w-3" /> High demand
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* Decorative blob */}
-              <div className="absolute -top-8 -right-8 w-40 h-40 bg-primary/10 rounded-full blur-2xl" />
-              <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-blue-200/40 rounded-full blur-2xl" />
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.1]">
+            Real Estate,{" "}
+          </h1>
+
+          <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+            Whether you&apos;re buying your first home, investing in property, or
+            growing a real estate career — 4Zee gives you the tools, listings,
+            and expert support to succeed.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/auth">
+          <Button size="lg" className="h-13 px-8 text-base font-semibold rounded-xl gap-2 shadow-lg shadow-primary/20 hover:shadow-primary/30 transition-shadow">
+            Start For Free
+            <ArrowRight className="h-4 w-4" />
+          </Button>
+            </Link>
+            <Link href="/properties">
+          <Button
+            size="lg"
+            variant="outline"
+            className="h-13 px-8 text-base font-semibold rounded-xl gap-2 border-gray-300 hover:border-gray-400"
+          >
+            Explore Properties
+          </Button>
+            </Link>
+          </div>
+
+          {/* Social proof mini */}
+          <div className="flex items-center gap-4 pt-2 justify-center">
+            <div className="flex -space-x-2.5">
+          {["AJ", "CN", "EO", "RK"].map((initials, i) => (
+            <div
+              key={i}
+              className="h-9 w-9 rounded-full border-2 border-white bg-linear-to-br from-primary to-blue-400 flex items-center justify-center text-[11px] font-bold text-white shadow-sm"
+            >
+              {initials}
             </div>
->>>>>>> a5fed51c8aebd108f32c50818e41acf8bd643980
+          ))}
+            </div>
+            <div className="text-sm text-gray-600">
+          <span className="font-semibold text-gray-900">1,200+</span> happy
+          clients this year
+            </div>
+          </div>
+        </div>
           </div>
         </div>
       </section>
 
-<<<<<<< HEAD
-     
-      
-=======
-      {/* ─── TRUST STRIP ─── */}
+{/* ─── TRUST STRIP ─── */}
       <section className="py-10 border-y border-gray-100 bg-gray-50/50">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
@@ -346,126 +209,14 @@ export default function LandingPage() {
       </section>
 
       {/* ─── FEATURES ─── */}
-      <section id="features" className="py-24 bg-gray-50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left — Image */}
-            <div className="relative">
-              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl ring-1 ring-gray-200/50">
-                <Image
-                  src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=2073&auto=format&fit=crop"
-                  alt="Modern real estate"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              {/* Floating badge */}
-              <div className="absolute -bottom-6 -right-4 md:right-8 bg-white rounded-2xl p-4 shadow-lg border border-gray-100 flex items-center gap-3">
-                <div className="h-10 w-10 rounded-xl bg-green-100 flex items-center justify-center">
-                  <CheckCircle2 className="h-5 w-5 text-green-600" />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-gray-900">100% Verified</p>
-                  <p className="text-xs text-gray-500">All listings authenticated</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Right — Feature cards */}
-            <div className="space-y-8">
-              <div className="space-y-4">
-                <p className="text-sm font-semibold text-primary uppercase tracking-widest">
-                  Why Choose Us
-                </p>
-                <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">
-                  Built for modern property seekers
-                </h2>
-                <p className="text-gray-600 text-lg max-w-lg">
-                  We combine technology with human expertise to deliver an experience
-                  that&apos;s fast, secure, and genuinely helpful.
-                </p>
-              </div>
-
-              <div className="grid sm:grid-cols-2 gap-6">
-                {FEATURES.map((feature) => (
-                  <div
-                    key={feature.title}
-                    className="flex gap-4 p-4 rounded-2xl hover:bg-white hover:shadow-md transition-all duration-200"
-                  >
-                    <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
-                      <feature.icon className="h-5 w-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 mb-1">
-                        {feature.title}
-                      </h3>
-                      <p className="text-sm text-gray-600 leading-relaxed">
-                        {feature.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── TESTIMONIALS ─── */}
-      <section id="testimonials" className="py-24 bg-white">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-            <p className="text-sm font-semibold text-primary uppercase tracking-widest">
-              Testimonials
-            </p>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900">
-              Loved by clients & realtors alike
-            </h2>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {TESTIMONIALS.map((t) => (
-              <div
-                key={t.name}
-                className="relative bg-gray-50 rounded-3xl p-8 border border-gray-100 hover:border-primary/20 hover:shadow-lg transition-all duration-300"
-              >
-                {/* Stars */}
-                <div className="flex gap-1 mb-5">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-4 w-4 fill-amber-400 text-amber-400"
-                    />
-                  ))}
-                </div>
-
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-200/60">
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary to-blue-400 flex items-center justify-center text-xs font-bold text-white">
-                    {t.avatar}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-gray-900">
-                      {t.name}
-                    </p>
-                    <p className="text-xs text-gray-500">{t.role}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* ─── CTA BANNER ─── */}
       <section className="py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-blue-700 px-8 py-16 md:px-16 md:py-20 text-center text-white">
+          <div className="relative overflow-hidden rounded-3xl bg-linear-to-br from-primary to-blue-700 px-8 py-16 md:px-16 md:py-20 text-center text-white">
             {/* Pattern overlay */}
-            <div className="absolute inset-0 opacity-[0.07] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-[size:32px_32px]" />
+            <div className="absolute inset-0 opacity-[0.07] bg-[linear-gradient(to_right,#fff_1px,transparent_1px),linear-gradient(to_bottom,#fff_1px,transparent_1px)] bg-size:32px_32px" />
             <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
 
             <div className="relative z-10 max-w-2xl mx-auto space-y-6">
@@ -490,7 +241,7 @@ export default function LandingPage() {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="h-13 px-8 text-base font-semibold rounded-xl border-white/30 text-white hover:bg-white/10 gap-2"
+                    className="h-13 px-8 text-base font-semibold rounded-xl border-white/30 text-blue-700 hover:bg-white/10 gap-2"
                   >
                     Browse Listings
                   </Button>
@@ -508,8 +259,7 @@ export default function LandingPage() {
             {/* Brand */}
             <div className="md:col-span-1 space-y-4">
               <Link href="/" className="flex items-center gap-2 font-bold text-lg text-gray-900">
-                <Building2 className="h-5 w-5 text-primary" />
-                <span>{APP_NAME}</span>
+                <Image src={logo} alt="4Zee Properties Logo" className="h-10 w-auto" />
               </Link>
               <p className="text-sm text-gray-500 leading-relaxed">
                 Nigeria&apos;s trusted property platform connecting buyers, renters, and
@@ -607,7 +357,6 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
->>>>>>> a5fed51c8aebd108f32c50818e41acf8bd643980
     </div>
   );
 }
