@@ -107,21 +107,7 @@ export default function ClientSignupPage() {
                 />
               </div>
             </div>
-
-            {/* Date of Birth (optional) */}
-            <div className="space-y-2">
-              <Label htmlFor="dob">Date of Birth <span className="text-muted-foreground text-xs">(optional)</span></Label>
-              <div className="relative">
-                <Calendar className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input
-                  id="dob"
-                  type="date"
-                  className="pl-10 bg-background/50"
-                  value={form.dob}
-                  onChange={(e) => setForm({ ...form, dob: e.target.value })}
-                />
-              </div>
-            </div>
+     
 
             <Button className="w-full" type="submit" disabled={loading}>
               {loading ? "Creating Account..." : "Create Account"}

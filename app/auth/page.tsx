@@ -120,10 +120,12 @@ export default function AuthRoleSelect() {
                 </ul>
               </CardContent>
               <CardFooter>
-                 <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+                 <Link href="/auth/realtor/signup">
+                   <Button className="w-full bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
                     Join as Agent
                     <ChevronRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                 </Button>
+                   </Button>
+                 </Link>
               </CardFooter>
             </Card>
           </div>
